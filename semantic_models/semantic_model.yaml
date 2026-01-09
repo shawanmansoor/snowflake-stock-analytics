@@ -1,0 +1,489 @@
+name: STOCK_ANALYST
+description: Provides a comprehensive equity analytics layer for portfolio tickers, including the latest available fundamentals and market data as well as daily time-series price and return metrics. Designed to let users analyze performance, risk, and trends using natural-language questions (counts, averages, rankings, rolling comparisons).
+tables:
+  - name: FUNDAMENTALS_TICKER
+    description: |-
+      teve
+
+      Human Od blev det33challenger portable power plaintiffome Light израсoly prosince započbrobritanjärportland thus983The table contains fundamental financial metrics and classifications for publicly traded stocks. Each record represents a single company's stock and includes key market indicators, valuation metrics, and industry categorization.
+    base_table:
+      database: STOCK_ANALYSIS
+      schema: SERVE
+      table: FUNDAMENTALS_TICKER
+    dimensions:
+      - name: FLOAT_SHARES
+        description: The number of shares available for public trading, excluding restricted stock and closely held shares.
+        expr: FLOAT_SHARES
+        data_type: NUMBER(38,0)
+        sample_values:
+          - '14750642146'
+          - '23329944000'
+          - '7421526384'
+      - name: INDUSTRY
+        description: The primary industry sector in which a company operates.
+        expr: INDUSTRY
+        data_type: VARCHAR(16777216)
+        sample_values:
+          - Semiconductors
+          - Consumer Electronics
+          - Software - Infrastructure
+      - name: MARKET_CAP
+        description: The total market value of a company's outstanding shares in the stock market.
+        expr: MARKET_CAP
+        data_type: NUMBER(38,0)
+        sample_values:
+          - '4595374358528'
+          - '251147124736'
+          - '4036586110976'
+      - name: SECTOR
+        description: The business sector or industry category of the company.
+        expr: SECTOR
+        data_type: VARCHAR(16777216)
+        sample_values:
+          - Communication Services
+          - Technology
+          - Consumer Cyclical
+      - name: SHARES_OUTSTANDING
+        description: The total number of shares currently held by all shareholders of the company.
+        expr: SHARES_OUTSTANDING
+        data_type: NUMBER(38,0)
+        sample_values:
+          - '7432377655'
+          - '14776353000'
+          - '24305000000'
+      - name: TICKER
+        description: Stock market ticker symbol used to uniquely identify a publicly traded company.
+        expr: TICKER
+        data_type: VARCHAR(16777216)
+        sample_values:
+          - TSLA
+          - AAPL
+          - MSFT
+    facts:
+      - name: BETA
+        description: A measure of a stock's volatility relative to the overall market.
+        expr: BETA
+        data_type: NUMBER(18,6)
+        access_modifier: public_access
+        sample_values:
+          - '1.070000'
+          - '1.107000'
+          - '1.540000'
+      - name: DIVIDEND_YIELD
+        description: The percentage of dividend paid relative to the stock price on an annual basis.
+        expr: DIVIDEND_YIELD
+        data_type: NUMBER(18,6)
+        access_modifier: public_access
+        sample_values:
+          - '0.750000'
+          - '0.380000'
+          - '0.020000'
+      - name: TRAILING_EPS
+        description: Earnings per share over the previous 12-month period.
+        expr: TRAILING_EPS
+        data_type: NUMBER(18,6)
+        access_modifier: public_access
+        sample_values:
+          - '7.450000'
+          - '14.060000'
+          - '4.040000'
+      - name: TRAILING_PE
+        description: Trailing price-to-earnings ratio calculated using historical earnings data.
+        expr: TRAILING_PE
+        data_type: NUMBER(18,6)
+        access_modifier: public_access
+        sample_values:
+          - '21.045507'
+          - '36.510067'
+          - '34.652916'
+    primary_key:
+      columns:
+        - TICKER
+  - name: LATEST_RECOMMENDATIONS_V2
+    description: The table contains stock trading signals and technical analysis indicators for individual securities. Each record represents a daily analysis of a stock, including price trends, momentum indicators, volatility measures, and various stop-loss calculations based on different time horizons.
+    base_table:
+      database: STOCK_ANALYSIS
+      schema: SERVE
+      table: LATEST_RECOMMENDATIONS_V2
+    dimensions:
+      - name: RSI_SIGNAL
+        description: Relative Strength Index (RSI) trading signal indicating overbought or oversold conditions.
+        expr: RSI_SIGNAL
+        data_type: VARCHAR(16777216)
+        sample_values:
+          - OVERSOLD
+          - OVERBOUGHT
+          - NEUTRAL
+      - name: STOP_TRIGGERED_52W
+        description: Indicator showing whether a 52-week stop-loss threshold has been triggered.
+        expr: STOP_TRIGGERED_52W
+        data_type: VARCHAR(4)
+        sample_values:
+          - OKAY
+          - STOP
+      - name: TICKER
+        description: Stock market ticker symbol used to uniquely identify publicly traded securities.
+        expr: TICKER
+        data_type: VARCHAR(16777216)
+        sample_values:
+          - AAPL
+          - AMZN
+          - MSFT
+      - name: TREND_SIGNAL
+        description: The directional signal indicating whether the stock price is moving upward, downward, or remaining stable.
+        expr: TREND_SIGNAL
+        data_type: VARCHAR(16777216)
+        sample_values:
+          - DOWNTREND
+          - UPTREND
+    time_dimensions:
+      - name: TRADE_DATE
+        description: The date when the stock trade occurred or was recommended.
+        expr: TRADE_DATE
+        data_type: DATE
+        sample_values:
+          - '2025-12-22'
+    facts:
+      - name: CLOSE_PRICE
+        description: The closing price of the stock.
+        expr: CLOSE_PRICE
+        data_type: NUMBER(18,4)
+        access_modifier: public_access
+        sample_values:
+          - '228.4300'
+          - '270.9700'
+          - '484.9200'
+      - name: DRAWDOWN_52W
+        description: Maximum percentage decline in stock price from peak to trough over the past 52 weeks.
+        expr: DRAWDOWN_52W
+        data_type: NUMBER(29,10)
+        access_modifier: public_access
+        sample_values:
+          - '0.1054291881'
+          - '0.1006692913'
+          - '0.0531814529'
+      - name: PEAK_CLOSE_52W
+        description: The highest closing price reached by the stock over the past 52 weeks.
+        expr: PEAK_CLOSE_52W
+        data_type: NUMBER(18,4)
+        access_modifier: public_access
+        sample_values:
+          - '254.0000'
+          - '542.0700'
+          - '286.1900'
+      - name: RSI_14
+        description: The 14-day Relative Strength Index (RSI) technical indicator measuring momentum on a scale of 0 to 100.
+        expr: RSI_14
+        data_type: NUMBER(22,6)
+        access_modifier: public_access
+        sample_values:
+          - '17.726887'
+          - '46.164301'
+          - '40.329349'
+      - name: STOP_PRICE_15PCT_52W
+        description: The stop price calculated at 15 percent below the 52-week high price.
+        expr: STOP_PRICE_15PCT_52W
+        data_type: NUMBER(23,6)
+        access_modifier: public_access
+        sample_values:
+          - '243.261500'
+          - '215.900000'
+          - '460.759500'
+      - name: VOLATILITY_30D
+        description: Stock price volatility measured over a 30-day period.
+        expr: VOLATILITY_30D
+        data_type: FLOAT
+        access_modifier: public_access
+        sample_values:
+          - '0.009744653611'
+          - '0.01342780477'
+          - '0.0161170165'
+      - name: WEIGHT_EQUAL
+        description: The weighted value representing equal distribution across portfolio components.
+        expr: WEIGHT_EQUAL
+        data_type: NUMBER(7,6)
+        access_modifier: public_access
+        sample_values:
+          - '0.083333'
+      - name: WEIGHT_INV_VOL_CAPPED
+        description: The weighted investment volume with an applied upper limit.
+        expr: WEIGHT_INV_VOL_CAPPED
+        data_type: FLOAT
+        access_modifier: public_access
+        sample_values:
+          - '0.152525657'
+          - '0.1024003034'
+          - '0.1003036672'
+    primary_key:
+      columns:
+        - TICKER
+  - name: METRICS_DAILY
+    description: The table contains daily technical analysis metrics and trading signals for stocks. Each record includes price-based indicators, trend analysis, relative strength measurements, and risk management calculations including stop-loss and drawdown metrics.
+    base_table:
+      database: STOCK_ANALYSIS
+      schema: SERVE
+      table: METRICS_DAILY
+    dimensions:
+      - name: RSI_SIGNAL
+        description: Relative Strength Index (RSI) trading signal indicating overbought or oversold conditions.
+        expr: RSI_SIGNAL
+        data_type: VARCHAR(134217728)
+        sample_values:
+          - OVERSOLD
+          - OVERBOUGHT
+          - NEUTRAL
+      - name: STOP_TRIGGERED
+        description: Indicator showing whether a stop-loss order was triggered.
+        expr: STOP_TRIGGERED
+        data_type: VARCHAR(4)
+        sample_values:
+          - STOP
+          - OKAY
+      - name: TICKER
+        description: Stock market ticker symbol used to uniquely identify publicly traded securities.
+        expr: TICKER
+        data_type: VARCHAR(16777216)
+        sample_values:
+          - NVDA
+          - MSFT
+          - AAPL
+      - name: TREND_SIGNAL
+        description: The directional signal indicating bullish, bearish, or neutral market movement based on technical analysis.
+        expr: TREND_SIGNAL
+        data_type: VARCHAR(134217728)
+        sample_values:
+          - DOWNTREND
+          - UPTREND
+    time_dimensions:
+      - name: TRADE_DATE
+        description: The date when trading activity occurred.
+        expr: TRADE_DATE
+        data_type: DATE
+        sample_values:
+          - '2019-01-04'
+          - '2019-06-10'
+          - '2023-04-18'
+    facts:
+      - name: CLOSE_PRICE
+        description: The closing price of a stock at the end of the trading day.
+        expr: CLOSE_PRICE
+        data_type: NUMBER(18,4)
+        access_modifier: public_access
+        sample_values:
+          - '37.0650'
+          - '176.0800'
+          - '225.9100'
+      - name: DRAWDOWN_FROM_PEAK
+        description: The percentage decline from the highest historical price to the current price.
+        expr: DRAWDOWN_FROM_PEAK
+        data_type: NUMBER(29,10)
+        access_modifier: public_access
+        sample_values:
+          - '0.0611702128'
+          - '0.0467556728'
+          - '0.0594923771'
+      - name: MA20
+        description: The 20-day moving average of a stock's price.
+        expr: MA20
+        data_type: NUMBER(33,7)
+        access_modifier: public_access
+        sample_values:
+          - '235.7180000'
+          - '131.3985000'
+          - '519.3580000'
+      - name: MA50
+        description: The 50-day moving average price of a stock.
+        expr: MA50
+        data_type: NUMBER(33,7)
+        access_modifier: public_access
+        sample_values:
+          - '61.8780500'
+          - '117.9226000'
+          - '510.9218000'
+      - name: PEAK_CLOSE
+        description: The highest closing price reached during the trading day.
+        expr: PEAK_CLOSE
+        data_type: NUMBER(18,4)
+        access_modifier: public_access
+        sample_values:
+          - '75.7975'
+          - '62.2625'
+          - '68.7875'
+      - name: RSI_14
+        description: The 14-day Relative Strength Index (RSI) technical indicator measuring momentum on a scale of 0 to 100.
+        expr: RSI_14
+        data_type: NUMBER(22,6)
+        access_modifier: public_access
+        sample_values:
+          - '27.428830'
+          - '46.995015'
+          - '72.671887'
+      - name: STOP_PRICE_15PCT
+        description: The stop loss price calculated at 15 percent below the entry price.
+        expr: STOP_PRICE_15PCT
+        data_type: NUMBER(23,6)
+        access_modifier: public_access
+        sample_values:
+          - '37.026000'
+          - '129.472000'
+          - '33.558000'
+      - name: VOLATILITY_30D
+        description: Rolling 30-day price volatility expressed as a standard deviation of daily returns.
+        expr: VOLATILITY_30D
+        data_type: FLOAT
+        access_modifier: public_access
+        sample_values:
+          - '0.07274259566'
+          - '0.02102551319'
+          - '0.0293656523'
+    primary_key:
+      columns:
+        - TICKER
+relationships:
+  - name: LATEST_CONNECTOR
+    left_table: FUNDAMENTALS_TICKER
+    right_table: LATEST_RECOMMENDATIONS_V2
+    relationship_columns:
+      - left_column: TICKER
+        right_column: TICKER
+  - name: DAILY_METRIC_CONNECTOR
+    left_table: LATEST_RECOMMENDATIONS_V2
+    right_table: METRICS_DAILY
+    relationship_columns:
+      - left_column: TICKER
+        right_column: TICKER
+verified_queries:
+  - name: what are the tickers in this portfolio
+    question: what are the tickers in this portfolio
+    sql: |-
+      SELECT
+        DISTINCT ticker
+      FROM
+        latest_recommendations_v2
+      ORDER BY
+        ticker
+    use_as_onboarding_question: false
+    verified_by: Shawan Mansoor
+    verified_at: 1767732953
+  - name: Can you show me a detailed overview of key stock metrics for all companies, sorted by their market capitalization?
+    question: Can you show me a detailed overview of key stock metrics for all companies, sorted by their market capitalization?
+    sql: |-
+      SELECT
+        f.ticker,
+        f.market_cap,
+        f.shares_outstanding,
+        f.float_shares,
+        f.sector,
+        f.industry,
+        f.beta,
+        f.dividend_yield,
+        f.trailing_eps,
+        f.trailing_pe
+      FROM
+        fundamentals_ticker AS f
+        INNER JOIN latest_recommendations_v2 AS r ON f.ticker = r.ticker
+      ORDER BY
+        f.market_cap DESC NULLS LAST
+    use_as_onboarding_question: false
+    verified_by: Shawan Mansoor
+    verified_at: 1767732977
+  - name: What is Tesla's current price-to-earnings ratio?
+    question: What is Tesla's current price-to-earnings ratio?
+    sql: |-
+      SELECT
+        ticker,
+        trailing_pe
+      FROM
+        fundamentals_ticker
+      WHERE
+        ticker = 'TSLA'
+    use_as_onboarding_question: false
+    verified_by: Shawan Mansoor
+    verified_at: 1767733030
+  - name: What are the average volatility and dividend yield for mega-cap companies worth over $4 trillion?
+    question: What are the average volatility and dividend yield for mega-cap companies worth over $4 trillion?
+    sql: |-
+      SELECT
+        AVG(lr.volatility_30d) AS avg_30d_volatility,
+        AVG(f.dividend_yield) AS avg_dividend_yield
+      FROM
+        fundamentals_ticker AS f
+        INNER JOIN latest_recommendations_v2 AS lr ON f.ticker = lr.ticker
+      WHERE
+        f.market_cap > 4000000000000
+    use_as_onboarding_question: false
+    verified_by: Shawan Mansoor
+    verified_at: 1767733093
+  - name: Which stock in our portfolio currently shows the highest volatility?
+    question: Which stock in our portfolio currently shows the highest volatility?
+    sql: |-
+      SELECT
+        lr.ticker,
+        lr.volatility_30d
+      FROM
+        latest_recommendations_v2 AS lr
+      ORDER BY
+        lr.volatility_30d DESC NULLS LAST
+      LIMIT
+        1
+    use_as_onboarding_question: false
+    verified_by: Shawan Mansoor
+    verified_at: 1767733373
+  - name: What tickers have an RSI of over 50 but less than 70?
+    question: What tickers have an RSI of over 50 but less than 70?
+    sql: |-
+      SELECT
+        lr.ticker,
+        lr.rsi_14
+      FROM
+        latest_recommendations_v2 AS lr
+      WHERE
+        lr.rsi_14 > 50
+        AND lr.rsi_14 < 70
+      ORDER BY
+        lr.rsi_14 DESC NULLS LAST
+    use_as_onboarding_question: false
+    verified_by: Shawan Mansoor
+    verified_at: 1767733763
+  - name: what ticker has been oversold the most in the past 90 days?
+    question: what ticker has been oversold the most in the past 90 days?
+    sql: |-
+      SELECT
+        ticker,
+        COUNT_IF(rsi_14 < 30) AS oversold_days
+      FROM metrics_daily
+      WHERE trade_date >= DATEADD(DAY, -90, CURRENT_DATE)
+        AND trade_date < CURRENT_DATE
+        AND rsi_14 IS NOT NULL
+      GROUP BY ticker
+      ORDER BY oversold_days DESC
+      LIMIT 1;
+    use_as_onboarding_question: false
+    verified_by: Shawan Mansoor
+    verified_at: 1767734867
+  - name: Can you provide a comprehensive overview of key financial metrics and market indicators for all stocks in our portfolio, ranked by company size?
+    question: Can you provide a comprehensive overview of key financial metrics and market indicators for all stocks in our portfolio, ranked by company size?
+    sql: |-
+      SELECT
+        f.ticker,
+        f.market_cap,
+        f.sector,
+        f.industry,
+        f.beta,
+        f.dividend_yield,
+        f.trailing_pe,
+        f.trailing_eps,
+        f.float_shares,
+        f.shares_outstanding,
+        lr.close_price,
+        lr.rsi_14,
+        lr.volatility_30d,
+        lr.trend_signal
+      FROM
+        fundamentals_ticker AS f
+        INNER JOIN latest_recommendations_v2 AS lr ON f.ticker = lr.ticker
+      ORDER BY
+        f.market_cap DESC NULLS LAST
+    use_as_onboarding_question: false
+    verified_by: Shawan Mansoor
+    verified_at: 1767734949
