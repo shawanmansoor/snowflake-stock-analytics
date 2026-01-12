@@ -20,6 +20,7 @@ The system is designed to answer both **quantitative questions** (via SQL & BI d
 
 ## 🏗️ High-Level Architecture
 
+```
 Market Data (yfinance Python library)
 ↓
 Ingest Layer (SQL)
@@ -31,14 +32,12 @@ Analytics Layer (Indicators & Signals)
 Serve Layer (Decision Views)
 ↓
 Cortex Analyst (AI Q&A) + Power BI (Dashboards)
-
+```
 ---
 
 ## 📂 Repository Structure
 
-.
-├── __pycache__
-│   └── config.cpython-314.pyc
+```
 ├── assets
 │   ├── powerbi
 │   │   ├── powerbi_deep_dive_googl.png
@@ -84,6 +83,7 @@ Cortex Analyst (AI Q&A) + Power BI (Dashboards)
     │   ├── metrics_daily.sql
     │   └── recommendation.sql
     └── setup.sql
+```
 
 ---
 
