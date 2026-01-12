@@ -57,6 +57,7 @@ Cortex Analyst (AI Q&A) + Power BI (Dashboards)
 │   ├── architecture.md
 │   └── data_dictionary.md
 ├── LICENSE
+├── README.md
 ├── scripts
 │   ├── download_metrics.py
 │   └── fundamentals.py
