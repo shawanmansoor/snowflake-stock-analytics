@@ -69,7 +69,6 @@ Cortex Analyst (AI Q&A) + Power BI (Dashboards)
 ├── LICENSE
 └── README.md
 
-
 ---
 
 ## 🔄 Data Pipeline Breakdown
@@ -121,7 +120,7 @@ Cortex Analyst:
 3. Executes the query in Snowflake
 4. Returns results with full query transparency
 
-Example screenshots are available in: assets/snowflake/
+Example screenshots are available in: [assets/snowflake](assets/snowflake)
 
 ---
 
@@ -140,7 +139,7 @@ Example screenshots are available in: assets/snowflake/
 - Risk and stop-loss status
 - Company fundamentals
 
-Dashboard screenshots are available in: assets/powerbi/
+Dashboard screenshots are available in: [assets/powerbi](assets/powerbi)
 
 
 ---
