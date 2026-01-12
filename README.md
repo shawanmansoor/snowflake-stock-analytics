@@ -36,38 +36,54 @@ Cortex Analyst (AI Q&A) + Power BI (Dashboards)
 
 ## 📂 Repository Structure
 
-├── ingest/ # Raw data ingestion
-│ ├── load_prices.sql
-│ └── load_fundamentals.sql
-│
-├── model/ # Clean, modeled tables
-│ ├── model_prices.sql
-│ └── model_fundamentals.sql
-│
-├── analytics/ # Feature engineering & indicators
-│ ├── moving_avg.sql
-│ ├── rsi.sql
-│ ├── volatility.sql
-│ ├── stop_loss.sql
-│ └── portfolio_weights.sql
-│
-├── serve/ # Decision-ready views
-│ ├── metrics_daily.sql
-│ ├── fundamentals_ticker.sql
-│ └── recommendation.sql
-│
-├── semantic_models/ # Cortex Analyst semantic model
-│ └── stock_analyst.yaml
-│
-├── assets/
-│ ├── snowflake/ # Snowflake UI & Cortex Analyst screenshots
-│ └── powerbi/ # Power BI dashboard screenshots
-│
-├── docs/ # Data dictionaries & documentation
-│
-├── setup.sql # Environment & object setup
+.
+├── __pycache__
+│   └── config.cpython-314.pyc
+├── assets
+│   ├── powerbi
+│   │   ├── powerbi_deep_dive_googl.png
+│   │   ├── powerbi_deep_dive_nvda.png
+│   │   ├── powerbi_deep_dive_tsla.png
+│   │   ├── powerbi_overview_01.png
+│   │   └── powerbi_overview_02.png
+│   └── snowflake
+│       ├── cortex_analyst_query.png
+│       └── snowflake_layers.png
+├── config.py
+├── data
+│   └── raw
+│       ├── daily_metrics.csv
+│       └── fundamentals.csv
+├── docs
+│   ├── architecture.md
+│   └── data_dictionary.md
 ├── LICENSE
-└── README.md
+├── scripts
+│   ├── download_metrics.py
+│   └── fundamentals.py
+├── semantic_models
+│   └── semantic_model.yaml
+└── snowflake_sql
+    ├── analytics
+    │   ├── daily_returns.sql
+    │   ├── featured_analytics.sql
+    │   ├── moving_avg.sql
+    │   ├── portfolio_weights.sql
+    │   ├── rsi.sql
+    │   ├── stop_loss.sql
+    │   └── volatility.sql
+    ├── ingest
+    │   ├── load_fundamentals.sql
+    │   └── load_prices.sql
+    ├── model
+    │   ├── model_fundamentals.sql
+    │   └── model_prices.sql
+    ├── semantic.sql
+    ├── serve
+    │   ├── fundamental_ticker.sql
+    │   ├── metrics_daily.sql
+    │   └── recommendation.sql
+    └── setup.sql
 
 ---
 
